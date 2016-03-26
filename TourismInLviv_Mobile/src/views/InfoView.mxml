@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		creationComplete="view_creationCompleteHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			import com.tourism_in_lviv.air.constants.AssetsConst;
+
+			import mx.events.FlexEvent;
+
+			private var touchBegin_X:int;
+
+			protected function btnHome_clickHandler(event:MouseEvent):void
+			{
+				moveToPreviousView();
+			}
+
+			private function moveToPreviousView():void
+			{
+				// Switch to the first view in the section.
+				navigator.popToFirstView();
+			}
+
+			protected function touch_BeginHandler(event:TouchEvent):void
+			{
+				touchBegin_X=event.localX; //save begin X point
+			}
+
+			protected function touch_EndHandler(event:TouchEvent):void
+			{
+				if (touchBegin_X >= 0 && touchBegin_X <= 7) //if user touch screen and move on it from left to right (from any number from "0 to 7" to 100 px)
+				{
+					if (event.localX >= 100)
+						moveToPreviousView();
+				}
+			}
+
+			protected function view_creationCompleteHandler(event:FlexEvent):void
+			{
+				var min:int=Math.min(Capabilities.screenResolutionX, Capabilities.screenResolutionY);
+
+				if (min > 530)
+					logoTitle.width=476;
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+
+	<!--<s:navigationContent>
+		<s:Button icon="{AssetsConst.ICON_BACK}"
+				  height="55"
+				  width="63"
+				  click="btnHome_clickHandler(event)" />
+	</s:navigationContent>-->
+
+	<s:Scroller left="0"
+				right="0"
+				top="0"
+				bottom="0">
+		<s:VGroup width="100%"
+				  horizontalAlign="center">
+			<s:BitmapImage width="150"
+						   height="150"
+						   source="{AssetsConst.PICTURE_LOGO}"/>
+			<s:BitmapImage id="logoTitle"
+						   width="100%"
+						   height="70"
+						   source="{AssetsConst.PICTURE_LOGO_LABEL}"/>
+			<s:Label id="labelMainInfo"
+					 width="100%"
+					 paddingLeft="5"
+					 paddingRight="5"
+					 paddingTop="5"
+					 paddingBottom="5"
+					 maxDisplayedLines="80"
+					 fontSize="12"/>
+		</s:VGroup>
+	</s:Scroller>
+
+</s:View>

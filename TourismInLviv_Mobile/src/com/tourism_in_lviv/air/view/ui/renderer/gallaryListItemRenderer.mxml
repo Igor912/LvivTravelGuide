@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009"
+				xmlns:s="library://ns.adobe.com/flex/spark"
+				xmlns:mx="library://ns.adobe.com/flex/mx"
+				autoDrawBackground="false"
+				width="60"
+				height="60">
+	<fx:Script>
+		<![CDATA[
+			import com.tourism_in_lviv.air.model.dto.PlaceDTO;
+
+			override public function set data( value:Object ):void
+			{
+				super.data = value;
+				
+				if( data && data.pathToImage )
+				{
+					/* if( Capabilities.screenDPI == 240 ) */
+						listImage.source = data.pathToImage.path_130;
+				}
+			}
+
+		]]>
+	</fx:Script>
+
+	<s:states>
+		<s:State name="normal"/>
+		<s:State name="selected"/>
+	</s:states>
+
+	<s:Rect id="myRect"
+			width="100%"
+			height="0.5"
+			height.selected="0"
+			alpha="1.0"
+			bottom="0">
+		<s:stroke>
+			<s:SolidColorStroke color="0x000000"
+								alpha="0.9"
+								weight="0.1"/>
+		</s:stroke>
+	</s:Rect>
+
+	<s:Rect id="fill"
+			left="0"
+			right="0"
+			top="0"
+			bottom="0">
+		<s:fill>
+			<s:LinearGradient rotation="90">
+				<s:GradientEntry color="0xFFFFFF"
+								 color.selected="0xAAAAAA"
+								 alpha="0.85"
+								 alpha.selected="0.5"/>
+				<s:GradientEntry color="0xFFFFFF"
+								 color.selected="0x929496"
+								 alpha="0.85"/>
+			</s:LinearGradient>
+		</s:fill>
+	</s:Rect>
+
+	<s:HGroup width="100%"
+			  height="100%"
+			  verticalAlign="middle"
+			  ><!--horizontalAlign="center"-->
+		<s:SkinnableContainer width="0.5%"/>
+		<s:BorderContainer width="97"
+						   height="89%"
+						   borderWeight="1"
+						   borderStyle="solid"
+						   borderAlpha="5"
+						   cornerRadius="1">
+			<s:BitmapImage id="listImage"
+						   width="100%"
+						   height="100%"
+						   fillMode="scale"
+						   scaleMode="zoom"/>
+		</s:BorderContainer>
+		<s:VGroup width="100%"
+				  height="100%"
+				  horizontalAlign="right">
+			<s:Label text="{data.name}"
+					 width="100%"
+					 height="77%"
+					 verticalAlign="middle"/>
+			<s:Label text="{data.categoryTags}"
+					 textAlign="end"
+					 verticalAlign="middle"
+					 fontSize="10"
+					 width="75%"
+					 height="23%"
+					 paddingLeft="7"
+					 paddingRight="7"
+					 backgroundColor="{data is PlaceDTO ? 0xda4336 : 0xDF7401}"
+					 backgroundAlpha="0.5"
+					 color="0xFFFFFF" />
+		</s:VGroup>
+	</s:HGroup>
+
+</s:ItemRenderer>

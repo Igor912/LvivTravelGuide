@@ -1,0 +1,13 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace ns "com.tourism_in_lviv.air.view.ui.component.*";
+
+ns|ComponentDescriptionInfo
+{
+	skinClass:ClassReference("com.tourism_in_lviv.air.view.skin.ComponentDescriptionInfoSkin");
+}
+
+s|ActionBar
+{
+	skinClass:ClassReference("com.tourism_in_lviv.air.view.skin.ComponentActionBarSkin");
+}

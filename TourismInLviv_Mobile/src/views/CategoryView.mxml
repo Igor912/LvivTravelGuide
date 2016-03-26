@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="Категорії"
+		add="addHandler(event)" touchBegin="touch_BeginHandler(event)" touchEnd="touch_EndHandler(event)">
+	<fx:Script>
+		<![CDATA[
+			import com.tourism_in_lviv.air.model.dto.CategoryDTO;
+			
+			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
+			
+			import spark.events.IndexChangeEvent;
+			import spark.transitions.SlideViewTransition;
+			
+			private var touchBegin_X:int; 
+			
+			protected function categorysList_changeHandler(event:IndexChangeEvent):void
+			{
+				moveToPreviousView();
+			}
+			
+			// Override createReturnObject() to return the new font size.
+			override public function createReturnObject():Object 
+			{
+				return categorysList.selectedItem;  //on move to previous view return categorysList.selectedItem
+			}
+			
+			protected function addHandler(event:FlexEvent):void
+			{
+				categorysList.dataProvider = (data as ArrayCollection).getItemAt(0) as ArrayCollection;
+				categorysList.selectedItem = (data as ArrayCollection).getItemAt(1) as CategoryDTO;
+			}
+			
+			private function moveToPreviousView():void
+			{
+				var transition:SlideViewTransition = new SlideViewTransition();
+				transition.direction = 'left';
+				navigator.popView( transition ); //move to previous view
+			}
+			
+			protected function touch_BeginHandler( event:TouchEvent ):void
+			{
+				touchBegin_X = event.localX; //save begin X point
+			}
+			
+			protected function touch_EndHandler( event:TouchEvent ):void
+			{
+				if( touchBegin_X <= this.width && touchBegin_X >= this.width - 10 )  //if user touch screen and move on it from right to left (from any number from "this.witdt to this.witdt - 10" to this.width - 100 px)
+				{
+					if( event.localX <= this.width - 100 )
+						moveToPreviousView();
+				}
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:VGroup width="100%"
+			  height="100%">
+		<s:List id="categorysList"
+				width="100%"
+				height="100%"
+				labelField="label"
+				change="categorysList_changeHandler(event)">			
+		</s:List>
+	</s:VGroup>
+</s:View>

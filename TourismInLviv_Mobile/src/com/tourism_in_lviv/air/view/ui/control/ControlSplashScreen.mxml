@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:SplashScreenImage xmlns:fx="http://ns.adobe.com/mxml/2009" 
+					 xmlns:s="library://ns.adobe.com/flex/spark">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			[Embed(source="/images/Backgrounds/background_1024x500.png")]
+			private var SplashImageTablet:Class;
+			
+			[Embed(source="/images/Backgrounds/background.png")]
+			private var SplashImageHighPhone:Class;
+			
+			[Embed(source="/images/Backgrounds/background_480.png")]
+			private var SplashImageLowPhone:Class;
+			
+			override public function getImageClass( aspectRatio:String, dpi:Number, resolution:Number ):Class 
+			{
+				var min:int = Math.min(Capabilities.screenResolutionX, Capabilities.screenResolutionY);
+				
+				if (min > 960)
+					return SplashImageTablet;
+				else if (min > 480)
+					return SplashImageHighPhone;
+				else
+					return SplashImageLowPhone;
+			}
+		]]>
+	</fx:Script>
+	
+	<!-- Default splashscreen image. -->
+	<!--<s:SplashScreenImageSource id="imgBackground" 
+		source="@Embed('/images/Backgrounds/background.png')"/>
+	
+	<s:SplashScreenImageSource 
+		source="@Embed('/images/Backgrounds/background_480.png')"
+		dpi="240"/>-->
+</s:SplashScreenImage>

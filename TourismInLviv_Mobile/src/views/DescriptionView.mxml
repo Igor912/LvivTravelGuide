@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		title="Деталі"
+		xmlns:ns="com.tourism_in_lviv.air.view.ui.component.*"
+		touchBegin="touch_BeginHandler(event)"
+		touchEnd="touch_EndHandler(event)">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+
+	<s:navigationContent>
+		<s:Button icon="{AssetsConst.ICON_BACK}"
+				  height="55"
+				  width="63"
+				  click="btnHome_clickHandler(event)"/>
+	</s:navigationContent>
+
+	<ns:ComponentDescriptionInfo id="descriptionInfoView"
+								 width="100%"
+								 height="100%"
+								 creationComplete="descriptionInfoView_creationCompleteHandler(event)"/>
+	<fx:Script>
+		<![CDATA[
+			import com.tourism_in_lviv.air.constants.AssetsConst;
+			import com.tourism_in_lviv.air.model.dto.FactDTO;
+			import com.tourism_in_lviv.air.model.dto.PlaceDTO;
+			import com.tourism_in_lviv.air.utils.GeneralUtils;
+
+			import mx.events.FlexEvent;
+
+			private var touchBegin_X:int;
+
+			protected function btnHome_clickHandler(event:MouseEvent):void
+			{
+				moveToPreviousView();
+			}
+
+			private function moveToPreviousView():void
+			{
+				// Switch to the first view in the section.
+				navigator.popToFirstView();
+			}
+
+			// Override createReturnObject() to return the new font size.
+			override public function createReturnObject():Object
+			{
+				return data.selectedIndex; //on move to previous view return categorysList.selectedItem
+			}
+
+			protected function touch_BeginHandler(event:TouchEvent):void
+			{
+				touchBegin_X=event.localX; //save begin X point
+			}
+
+			protected function touch_EndHandler(event:TouchEvent):void
+			{
+				if (touchBegin_X >= 0 && touchBegin_X <= 7) //if user touch screen and move on it from left to right (from any number from "0 to 7" to 100 px)
+				{
+					if (event.localX >= 100)
+						moveToPreviousView();
+				}
+			}
+
+			protected function descriptionInfoView_creationCompleteHandler(event:FlexEvent):void
+			{
+				if (data && data.selectedItem)
+				{
+					if (data.selectedItem.pathToImage)
+					{
+						var object:Object=Capabilities as Object;
+						//	if( Capabilities.screenResolutionX >= 320 && Capabilities.screenResolutionX <= 500 )
+						descriptionInfoView.img.source=data.selectedItem.pathToImage.path_480;
+						/*
+					else
+						descriptionInfoView.img.source = data.selectedItem.pathToImage.path; */
+					}
+
+					descriptionInfoView.lblTitle.text=data.selectedItem.name;
+					if (data.selectedItem is PlaceDTO)
+					{
+						descriptionInfoView.lblTitle.setStyle('backgroundColor', 0xda4336);
+						descriptionInfoView.lblDescription.text=data.selectedItem.longDescription;
+						descriptionInfoView.lblAddressValue.text=data.selectedItem.address;
+					}
+					else if (data.selectedItem is FactDTO)
+					{
+						descriptionInfoView.lblTitle.setStyle('backgroundColor', 0xDF7401);
+						descriptionInfoView.lblDescription.text=data.selectedItem.description;
+						descriptionInfoView.lblAddressValue.visible=false;
+						descriptionInfoView.lblAddressLabel.visible=false;
+					}
+				}
+			}
+		]]>
+	</fx:Script>
+</s:View>

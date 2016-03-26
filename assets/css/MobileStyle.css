@@ -1,0 +1,31 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+
+s|Application
+{
+	fontFamily: "Calibri";
+}
+
+s|ActionBar
+{
+	chromeColor: #da4336;
+	titleAlign: center;
+	fontWeight:normal;
+	
+}
+
+s|Button
+{
+	fontWeight:normal;
+}
+
+s|ActionBar #titleDisplay {
+	fontWeight:normal;
+	color: #FFFFFF;
+}
+
+s|TabbedViewNavigator #tabBar
+{
+	chromeColor: #000000;
+	fontSize:17;
+}

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
+		xmlns:s="library://ns.adobe.com/flex/spark"
+		title="Цікаві факти про Львів"
+		xmlns:ns="com.tourism_in_lviv.air.view.ui.component.*"
+		add="addHandler(event)"
+		>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<s:navigationContent>
+		<s:Button id="btnCategory" 
+				  height="55"
+				  width="63"
+				  icon="{AssetsConst.ICON_CATEGORYS}"/>
+	</s:navigationContent>
+	<s:actionContent>
+		<s:Button id="btnOptions"
+				  icon="{AssetsConst.ICON_SETTINGS}" 
+				  height="54"
+				  width="63" />
+	</s:actionContent>
+
+	<s:VGroup width="100%"
+			  height="100%">
+		<s:List id="factsList"
+				width="100%"
+				height="100%"
+				labelField="name"
+				creationComplete="factsList_creationCompleteHandler(event)"
+				itemRenderer="com.tourism_in_lviv.air.view.ui.renderer.gallaryListItemRenderer">
+		</s:List>
+	</s:VGroup>
+
+	<fx:Script>
+		<![CDATA[
+			import com.tourism_in_lviv.air.constants.AssetsConst;
+			import com.tourism_in_lviv.air.model.dto.CategoryDTO;
+			import com.tourism_in_lviv.air.model.dto.FactDTO;
+			
+			import mx.events.FlexEvent;
+			
+			private var _selectedCategory:CategoryDTO;
+			private var selectedIndex:int;
+			
+			public function get selectedCategory():CategoryDTO
+			{
+				return _selectedCategory;
+			}
+			
+			public function get selectedFact():FactDTO
+			{
+				return factsList.selectedItem;
+			}
+			
+			public function get selectedFactIndex():int
+			{
+				return factsList.selectedIndex;
+			}
+			
+			protected function addHandler(event:FlexEvent):void  //listener on add event which is activate when user moving from any view to PlaceView, it is dispatching before the mediator registered
+			{
+				if( navigator.poppedViewReturnedObject && navigator.poppedViewReturnedObject.object is CategoryDTO ) //if moving back from categoryView to placesView - set categoryView.returnedData for placesList
+				{
+					_selectedCategory = navigator.poppedViewReturnedObject.object as CategoryDTO; 
+				}
+				else if (navigator.poppedViewReturnedObject && navigator.poppedViewReturnedObject.object is int)
+					selectedIndex=navigator.poppedViewReturnedObject.object as int;
+			}
+			
+			protected function factsList_creationCompleteHandler(event:FlexEvent):void
+			{
+				if (selectedIndex)
+					callLater(scrollToIndex);
+			}
+			
+			protected function scrollToIndex():void
+			{
+				factsList.ensureIndexIsVisible(selectedIndex);
+			}
+		]]>
+	</fx:Script>
+</s:View>
