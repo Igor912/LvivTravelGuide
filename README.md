@@ -4,7 +4,7 @@
 
 Mobile version of Travel Guide on Lviv city (Ukraine).
 -------------------
-You can get much information about much of interesting places of Lviv. And do this offline.
+You can get much information about interesting places of Lviv. And do this offline.
 Photos, descriptions, info how to get there.
 
 =============
