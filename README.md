@@ -1,6 +1,5 @@
-# LvivTravelGuide
+# Lviv Travel Guide
 
-  ===============
   Flex Mobile project. (ActionScript3/MXML)
   Android/iOS/BlackBerry.
 
