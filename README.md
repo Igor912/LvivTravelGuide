@@ -10,7 +10,7 @@ Photos, descriptions, info how to get there.
 
 =============
 
-- Used JSON for store all data.
+- Used JSON to store all the data.
 - Used Robotlegs framework.
 
 Implemented model, controllers and views. Getting data from json and showing it on views.
