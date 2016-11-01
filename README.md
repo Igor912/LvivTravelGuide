@@ -1,9 +1,9 @@
-# Lviv Travel Guide
+# Lviv Travel Guide Mobile app
 
-  Flex Mobile project. (ActionScript3/MXML)
-  Android/iOS/BlackBerry.
+##### Flex Mobile project. (ActionScript3/MXML)
+#### Android/iOS.
 
-Mobile version of Travel Guide on Lviv city (Ukraine).
+###### Mobile version of Travel Guide on Lviv city.
 -------------------
 You can get in this app much information about interesting places of Lviv. And do this offline.
 Photos, descriptions, info how to get there.
@@ -13,4 +13,4 @@ Photos, descriptions, info how to get there.
 - Used JSON to store all the data.
 - Used Robotlegs framework.
 
-Implemented model, controllers and views. Getting data from json and showing it on views.
+Built with MVC pattern. Getting data from json in model and showing it on views.
